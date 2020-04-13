@@ -44,12 +44,12 @@
     "@types/lru-cache": "^5.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "hermit-purple-server": "^0.3.0-alpha.2",
+    "hermit-purple-server": "^0.3.0",
     "http-proxy-middleware": "^1.0.3",
     "knex-on-duplicate-update": "^1.1.3",
     "lodash": "^4.17.15",
     "lru-cache": "^5.1.1",
-    "muta-sdk": "^0.8.0-alpha.0"
+    "muta-sdk": "^0.8.0-alpha.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",

@@ -1482,10 +1482,10 @@ hdkey@^1.1.1:
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
-hermit-purple-server@^0.3.0-alpha.2:
-  version "0.3.0-alpha.2"
-  resolved "https://registry.npmjs.org/hermit-purple-server/-/hermit-purple-server-0.3.0-alpha.2.tgz#b4441da4f66da0dd49b5f575b0a5882170e64389"
-  integrity sha512-EgJAjzI8+T08mzMV2RnduBzfmj0joyJcb+ufNBjwtRQsXuA44ZQU1kpNUescdhs5s4FbwbhTf9xWzfI8hxXe3Q==
+hermit-purple-server@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/hermit-purple-server/-/hermit-purple-server-0.3.0.tgz#f63235ae5ff5ecd14fdab2b80636540d68b1a2fe"
+  integrity sha512-i1mA5ad8wAvqf64/AmlRKsgrk2AEevxOX2xJdVQHI3nJdsOAPPo+F1HI8zqyzweDKgQzMCwLgYF9kNeRHArBSA==
   dependencies:
     "@types/app-root-path" "^1.2.4"
     "@types/bluebird" "^3.5.29"
@@ -1512,7 +1512,7 @@ hermit-purple-server@^0.3.0-alpha.2:
     lossless-json "^1.0.3"
     lru-cache "^5.1.1"
     module-alias "^2.2.2"
-    muta-sdk "^0.8.0-alpha.0"
+    muta-sdk "^0.8.0-alpha.1"
     mysql "^2.18.1"
     nexus "0.12.0-rc.13"
 
@@ -2190,10 +2190,10 @@ ms@^2.1.1:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-muta-sdk@^0.8.0-alpha.0:
-  version "0.8.0-alpha.0"
-  resolved "https://registry.npmjs.org/muta-sdk/-/muta-sdk-0.8.0-alpha.0.tgz#9f8d85ed13da28a36314c8fd1ce26e782d82a6ff"
-  integrity sha512-D9vpObirTDlbbwZLj6ZaFf/lY9T98NZ4yFIQ2XaC5L4Hf59MqrWZn17U9alN70rRdmVSVlli777YDojJQ3+uyQ==
+muta-sdk@^0.8.0-alpha.1:
+  version "0.8.0-alpha.1"
+  resolved "https://registry.npmjs.org/muta-sdk/-/muta-sdk-0.8.0-alpha.1.tgz#cf63b56ce8b675c1c67969432368255c5d06740f"
+  integrity sha512-p50Xglsm38pa6w7NX+qI2C8T4/NJNgrqMbSQp2OA8wjahrGidwp0RDiraXYSF56ERoyU3D4yol7kZ26tv5sa4A==
   dependencies:
     "@types/debug" "^4.1.5"
     "@types/randombytes" "^2.0.0"
