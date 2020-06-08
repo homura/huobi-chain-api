@@ -46,13 +46,13 @@ const syncAdapter: Synchronizer = {
     const receipt = await readonlyAssetService.get_native_asset();
 
     const asset = receiptAssetToDBAsset(
-      receipt.ret,
+      receipt.succeedData,
       // There is no txHash in the genesis block, this is a virtual txHash
       '0000000000000000000000000000000000000000000000000000000000000000',
     );
     await knex<Asset>(ASSET).insert(asset);
     await knex<Balance>(BALANCE).insert({
-      address: hexAddress(receipt.ret.issuer),
+      address: hexAddress(receipt.succeedData.issuer),
       balance: asset.supply,
       assetId: asset.assetId,
       id: 1,

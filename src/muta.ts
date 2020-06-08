@@ -1,4 +1,5 @@
-import { Muta, AssetService } from 'muta-sdk';
+import { Muta } from 'muta-sdk';
+import { AssetService } from 'huobi-chain-sdk';
 import {
   MUTA_CHAINID,
   MUTA_ENDPOINT,

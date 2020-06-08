@@ -9,7 +9,7 @@ import {
   Transaction,
 } from 'hermit-purple-server/lib/hermit-types/model';
 import { utils } from 'muta-sdk';
-import { Uint64 } from 'muta-sdk/build/main/types/scalar';
+import { Uint64 } from '@mutajs/types';
 import {
   Account as DBAccount,
   Asset as DBAsset,

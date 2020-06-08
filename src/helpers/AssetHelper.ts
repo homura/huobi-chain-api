@@ -8,8 +8,8 @@ import {
 } from 'hermit-purple-server/lib/hermit-sync/clean/hex';
 import { rm0x, toHex } from 'hermit-purple-server/lib/hermit-utils/bytes';
 import LRUCache from 'lru-cache';
-import { Asset as ReceiptAsset } from 'muta-sdk/build/main/service/binding/AssetService';
-import { Address, Hash, Uint64 } from 'muta-sdk/build/main/types/scalar';
+import { Asset as ReceiptAsset } from 'huobi-chain-sdk';
+import { Address, Hash, Uint64 } from '@mutajs/types';
 import { ASSET } from '../db-mysql/constants';
 import { Asset, Asset as DBAsset } from '../generated/types';
 import { readonlyAssetService } from '../muta';
@@ -78,7 +78,7 @@ class AssetHelper {
       asset_id: toHex(assetId),
     });
 
-    const value = receipt.ret.balance.toString(16);
+    const value = receipt.succeedData.balance.toString(16);
     if (!withAmount) {
       return { value };
     }
