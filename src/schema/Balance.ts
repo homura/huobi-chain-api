@@ -1,12 +1,8 @@
-import { pageArgs } from 'hermit-purple-server/lib/hermit-graphql/schema/pagination';
-import {
-  arg,
-  objectType,
-  queryField,
-} from 'hermit-purple-server/lib/hermit-lib/nexus';
-import { helper } from '../../helpers/AssetHelper';
+import { schema } from '@muta-extra/nexus-schema';
+import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
+import { helper } from '../helpers/AssetHelper';
 
-export const Balance = objectType({
+export const Balance = schema.objectType({
   name: 'Balance',
   definition(t) {
     t.field('balance', {
@@ -27,7 +23,7 @@ export const Balance = objectType({
     t.field('asset', {
       type: 'Asset',
       async resolve(parent, args, ctx) {
-        return (await ctx.dao.asset.assetById({ id: parent.assetId }))!;
+        return (await ctx.assetService.findByAssetId(args.assetId))!;
       },
     });
 
@@ -42,20 +38,20 @@ export const Balance = objectType({
   },
 });
 
-export const balancePagination = queryField(t => {
+export const balancePagination = schema.queryField((t) => {
   t.list.field('balances', {
     type: 'Balance',
     args: {
       ...pageArgs,
       // assetId: arg({ type: 'Hash' }),
-      address: arg({ type: 'Address', required: true }),
+      address: schema.arg({ type: 'Address', required: true }),
     },
     async resolve(parent, args, ctx) {
       const address = args.address;
       if (!address) return [];
-      return await ctx.dao.balance.balances({
+      return await ctx.balanceService.filterByAddress({
         pageArgs: args,
-        where: { address: address! },
+        address: args.address,
       });
     },
   });

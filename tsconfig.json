@@ -5,7 +5,9 @@
     "lib": ["esnext", "dom"],
     "strict": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["src/generated/types.ts"],
+    "baseUrl": "."
   },
 
   "include": ["src/**/*"]

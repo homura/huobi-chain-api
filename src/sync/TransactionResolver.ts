@@ -1,15 +1,15 @@
-import BigNumber from 'bignumber.js';
+import {
+  ReceiptModel as Receipt,
+  TransactionModel as Transaction,
+} from '@muta-extra/common';
 import {
   hexJSONParse,
   hexU64,
   SourceDataType,
-} from 'hermit-purple-server/lib/hermit-sync/clean/hex';
-import {
-  Receipt,
-  Transaction,
-} from 'hermit-purple-server/lib/hermit-types/model';
-import { utils } from 'muta-sdk';
+} from '@muta-extra/synchronizer/lib/clean/hex';
 import { Uint64 } from '@mutajs/types';
+import BigNumber from 'bignumber.js';
+import { utils } from 'muta-sdk';
 import {
   Account as DBAccount,
   Asset as DBAsset,
@@ -69,7 +69,7 @@ export class TransactionResolver {
   }
 
   getRelevantAccount(): DBAccount[] {
-    return Array.from(this.accounts).map(address => ({ address }));
+    return Array.from(this.accounts).map((address) => ({ address }));
   }
 
   getCreatedAssets(): DBAsset[] {

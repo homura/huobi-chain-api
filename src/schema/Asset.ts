@@ -1,7 +1,7 @@
-import { pageArgs } from 'hermit-purple-server/lib/hermit-graphql/schema/pagination';
-import { objectType, queryField, stringArg } from 'hermit-purple-server/lib/hermit-lib/nexus';
+import { schema } from '@muta-extra/nexus-schema';
+import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
 
-export const Asset = objectType({
+export const Asset = schema.objectType({
   name: 'Asset',
   definition(t) {
     t.field('assetId', { type: 'Hash' });
@@ -25,25 +25,25 @@ export const Asset = objectType({
   },
 });
 
-export const assetQuery = queryField(t => {
+export const assetQuery = schema.queryField((t) => {
   t.field('asset', {
     type: 'Asset',
     nullable: true,
     args: {
-      assetId: stringArg({ required: true }),
+      assetId: schema.stringArg({ required: true }),
     },
     resolve(parent, args, ctx) {
-      return ctx.dao.asset.assetById({ id: args.assetId });
+      return ctx.assetService.findByAssetId(args.assetId);
     },
   });
 });
 
-export const assetsPagination = queryField(t => {
+export const assetsPagination = schema.queryField((t) => {
   t.list.field('assets', {
     type: 'Asset',
     args: pageArgs,
     resolve(parent, args, ctx) {
-      return ctx.dao.asset.assets({ pageArgs: args });
+      return ctx.assetService.filter({ pageArgs: args });
     },
   });
 });

@@ -1,19 +1,19 @@
-import BigNumber from 'bignumber.js';
-import { knex } from 'hermit-purple-server/lib/db-mysql';
-import { findOne } from 'hermit-purple-server/lib/db-mysql/knex-helper';
+import { rm0x, toHex } from '@muta-extra/common/lib/utils/bytes';
+import { findOne, getKnexInstance } from '@muta-extra/knex-mysql';
 import {
   hexAddress,
   hexHash,
   hexU64,
-} from 'hermit-purple-server/lib/hermit-sync/clean/hex';
-import { rm0x, toHex } from 'hermit-purple-server/lib/hermit-utils/bytes';
-import LRUCache from 'lru-cache';
-import { Asset as ReceiptAsset } from 'huobi-chain-sdk';
+} from '@muta-extra/synchronizer/lib/clean/hex';
 import { Address, Hash, Uint64 } from '@mutajs/types';
+import BigNumber from 'bignumber.js';
+import { Asset as ReceiptAsset } from 'huobi-chain-sdk';
+import LRUCache from 'lru-cache';
 import { ASSET } from '../db-mysql/constants';
 import { Asset, Asset as DBAsset } from '../generated/types';
 import { readonlyAssetService } from '../muta';
 
+const knex = getKnexInstance();
 BigNumber.config({ EXPONENTIAL_AT: 18 });
 
 export function toAmount(value: string, precision: number | BigNumber) {

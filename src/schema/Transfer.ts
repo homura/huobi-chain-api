@@ -1,8 +1,8 @@
-import { pageArgs } from 'hermit-purple-server/lib/hermit-graphql/schema/pagination';
-import { arg, objectType, queryField } from 'hermit-purple-server/lib/hermit-lib/nexus';
+import { schema } from '@muta-extra/nexus-schema';
+import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
 import { GraphQLError } from 'graphql';
 
-export const Transfer = objectType({
+export const Transfer = schema.objectType({
   name: 'Transfer',
   definition(t) {
     t.int('id');
@@ -13,11 +13,7 @@ export const Transfer = objectType({
       type: 'Timestamp',
       description: 'A datetime string format as UTC string',
       async resolve(parent, args, ctx) {
-        // TODO
-        //  Redundant timestamps to improve performance
-        const block = await ctx.dao.block.blockByHeight({
-          height: parent.block,
-        });
+        const block = await ctx.blockService.findByHeight(parent.block);
         return block?.timestamp ?? '';
       },
     });
@@ -26,9 +22,7 @@ export const Transfer = objectType({
       type: 'Transaction',
       nullable: true,
       resolve(parent, args, ctx) {
-        return ctx.dao.transaction.transactionByTxHash({
-          txHash: parent.txHash,
-        });
+        return ctx.transactionService.findByTxHash(parent.txHash);
       },
     });
 
@@ -44,40 +38,39 @@ export const Transfer = objectType({
 
     t.field('asset', {
       type: 'Asset',
-      // TODO
-      //  Redundant asset to improve performance
-      async resolve(parent, args, ctx) {
-        return (await ctx.dao.asset.assetById({ id: parent.asset }))!;
+      resolve(parent, args, ctx) {
+        return ctx.assetService.findByAssetId(parent.asset).then((x) => x!);
       },
     });
   },
 });
 
-export const transferQuery = queryField(t => {
+export const transferQuery = schema.queryField((t) => {
   t.field('transfer', {
     type: Transfer,
     args: {
-      txHash: arg({ type: 'Hash' }),
+      txHash: schema.arg({ type: 'Hash' }),
     },
     nullable: true,
     resolve(parent, args, ctx) {
-      return ctx.dao.transfer.transferByTxHash({ txHash: args.txHash! });
+      return ctx.transferService.findByTxHash(args.txHash!);
     },
   });
 });
 
-export const transferPagination = queryField(t => {
+export const transferPagination = schema.queryField((t) => {
   t.list.field('transfers', {
     type: 'Transfer',
+    nullable: true,
     args: {
       ...pageArgs,
-      fromOrTo: arg({
+      fromOrTo: schema.arg({
         type: 'Address',
       }),
-      asset: arg({
+      asset: schema.arg({
         type: 'Hash',
       }),
-      blockHeight: arg({
+      blockHeight: schema.arg({
         type: 'Int',
       }),
     },
@@ -91,19 +84,23 @@ export const transferPagination = queryField(t => {
       }
 
       if (args.fromOrTo) {
-        return ctx.dao.transfer.transfersByFromOrTo({
+        return ctx.transferService.filterByFromOrTo({
           pageArgs: args,
           fromOrTo: args.fromOrTo,
-        });
+        })!;
+      } else if (args.blockHeight) {
+        return ctx.transferService.filterByBlockHeight({
+          pageArgs: args,
+          blockHeight: args.blockHeight,
+        })!;
+      } else if (args.asset) {
+        return ctx.transferService.filterByAssetId({
+          pageArgs: args,
+          assetId: args.asset,
+        })!;
       }
 
-      return ctx.dao.transfer.transfers({
-        pageArgs: args,
-        where: {
-          blockHeight: args.blockHeight!,
-          assetId: args.asset!,
-        },
-      });
+      return [];
     },
   });
 });

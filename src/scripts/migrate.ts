@@ -1,34 +1,7 @@
-import { join } from 'path';
+#!/usr/bin/env node
+require('@muta-extra/common').loadEnvFile();
 
-let [, , version, argOperation] = process.argv as [
-  string,
-  string,
-  '001',
-  ('up' | 'down')?,
-];
+import { createRunnableMigrate } from '@muta-extra/knex-mysql/lib/migration/run';
+import { HuobiMigration001 } from '../db-mysql/migration/001';
 
-async function main() {
-  if (!version) {
-    console.error('Wrong usage, try run `npm migrate 001`');
-    return;
-  }
-
-  const migrate = require(join(__dirname, `../db-mysql/migration/${version}`));
-
-  const migrationBuilder =
-    argOperation === 'up'
-      ? 'upBuilder'
-      : argOperation === 'down'
-      ? 'downBuilder'
-      : '';
-
-  if (migrationBuilder) {
-    await migrate[migrationBuilder]();
-    console.log(`migrate ${version} ${migrationBuilder} success`);
-    process.exit(0);
-  }
-
-  console.log(migrate.upBuilder().toQuery());
-}
-
-main();
+createRunnableMigrate(new HuobiMigration001());
