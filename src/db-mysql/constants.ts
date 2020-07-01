@@ -1,7 +1,7 @@
 /* custom table name */
 
-export const ASSET = 'Asset';
+export const ASSET = 'asset';
 
-export const TRANSFER = 'Transfer';
+export const TRANSFER = 'transfer';
 
-export const BALANCE = 'Balance';
+export const BALANCE = 'balance';

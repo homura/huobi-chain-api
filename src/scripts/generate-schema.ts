@@ -14,7 +14,9 @@ async function main() {
       'HERMIT_DATABASE_URL is required, try to config it to environment variable',
     );
 
-  const schema = await typescriptOfSchema(connection);
+  const schema = await typescriptOfSchema(connection, undefined, undefined, {
+    camelCase: true,
+  });
   writeFileSync(
     join(__dirname, '../generated/types.ts'),
     `// @ts-nocheck \n${schema}`,

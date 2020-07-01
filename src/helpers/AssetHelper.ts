@@ -68,7 +68,7 @@ class AssetHelper {
 
     const precision = asset.precision;
     return new BigNumber(value, 16)
-      .shiftedBy(-new BigNumber(precision))
+      .shiftedBy(-new BigNumber(precision!))
       .toString();
   }
 

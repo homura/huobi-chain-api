@@ -8,9 +8,11 @@ export class HuobiMigration001 extends Migration1591797537928 {
     return super
       .up()
       .createTable(ASSET, (table) => {
+        table.increments('id');
+
         table.specificType('account', 'varchar(42) NOT NULL');
 
-        table.specificType('assetId', 'varchar(66) NOT NULL');
+        table.specificType('asset_id', 'varchar(66) NOT NULL');
 
         table.text('name').notNullable();
 
@@ -22,18 +24,26 @@ export class HuobiMigration001 extends Migration1591797537928 {
 
         table.text('amount').notNullable();
 
-        table.specificType('txHash', 'varchar(66) NOT NULL');
+        table.specificType('tx_hash', 'varchar(66) NOT NULL');
       })
       .createTable(TRANSFER, (table) => {
-        table.specificType('asset', 'varchar(66) NOT NULL').index();
+        table.bigIncrements('id');
 
-        table.specificType('from', 'varchar(42) NOT NULL').index();
+        table
+          .specificType('asset', 'varchar(66) NOT NULL')
+          .index('idx_transfer_asset');
 
-        table.bigIncrements('id').primary();
+        table
+          .specificType('from', 'varchar(42) NOT NULL')
+          .index('idx_transfer_from');
 
-        table.specificType('to', 'varchar(42) NOT NULL').index();
+        table
+          .specificType('to', 'varchar(42) NOT NULL')
+          .index('idx_transfer_to');
 
-        table.specificType('txHash', 'varchar(66) NOT NULL').index();
+        table
+          .specificType('tx_hash', 'varchar(66) NOT NULL')
+          .index('idx_transfer_tx_hash');
 
         table
           .specificType('value', 'varchar(18) NOT NULL')
@@ -46,7 +56,7 @@ export class HuobiMigration001 extends Migration1591797537928 {
 
         table
           .integer('block')
-          .index()
+          .index('idx_transfer_block')
           .notNullable()
           .comment('The block height');
 
@@ -55,15 +65,19 @@ export class HuobiMigration001 extends Migration1591797537928 {
           .comment('Block timestamp');
       })
       .createTable(BALANCE, (table) => {
-        table.specificType('address', 'varchar(42) NOT NULL').index();
+        table.bigIncrements('id');
 
-        table.specificType('assetId', 'varchar(66) NOT NULL').index();
+        table
+          .specificType('address', 'varchar(42) NOT NULL')
+          .index('idx_balance_address');
+
+        table
+          .specificType('asset_id', 'varchar(66) NOT NULL')
+          .index('idx_balance_asset_id');
 
         table.specificType('balance', 'varchar(18) NOT NULL');
 
-        table.bigIncrements('id').primary();
-
-        table.unique(['address', 'assetId']);
+        table.unique(['address', 'asset_id'], 'uniq_balance_address_asset_id');
       });
   }
 
