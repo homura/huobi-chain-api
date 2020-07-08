@@ -5,8 +5,6 @@ import { GraphQLError } from 'graphql';
 export const Transfer = schema.objectType({
   name: 'Transfer',
   definition(t) {
-    t.int('id');
-
     t.int('block');
 
     t.field('timestamp', {
@@ -76,7 +74,6 @@ export const transferPagination = schema.queryField((t) => {
     },
     resolve(parent, args, ctx) {
       const { fromOrTo, asset, blockHeight } = args;
-
       if (fromOrTo && (asset || blockHeight)) {
         throw new GraphQLError(
           `The use of "fromOrTo" with other filtering arguments is not currently supported`,

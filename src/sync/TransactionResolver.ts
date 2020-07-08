@@ -1,42 +1,31 @@
-import {
-  ReceiptModel as Receipt,
-  TransactionModel as Transaction,
-} from '@muta-extra/common';
+import { ReceiptModel, TransactionModel } from '@muta-extra/common';
 import {
   hexJSONParse,
-  hexU64,
   SourceDataType,
 } from '@muta-extra/synchronizer/lib/clean/hex';
-import { Uint64 } from '@mutajs/types';
+import { utils } from '@mutadev/muta-sdk';
+import { Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
-import { utils } from 'muta-sdk';
-import {
-  Account as DBAccount,
-  Asset as DBAsset,
-  Balance as DBBalance,
-  Transfer as DBTransfer,
-} from '../generated/types';
 import { helper, toAmount } from '../helpers/AssetHelper';
+import { Account, Asset, Balance, Transfer } from '../types';
 
-export type Transfer = Omit<DBTransfer, 'id'>;
-export type Balance = Omit<DBBalance, 'id'>;
-type TransactionWithoutOrder = Omit<Transaction, 'order'>;
+type TransactionWithoutOrder = Omit<TransactionModel, 'order'>;
 
 interface TransactionResolverOptions {
   height: number;
   timestamp: Uint64;
   transactions: TransactionWithoutOrder[];
-  receipts: Receipt[];
+  receipts: ReceiptModel[];
 }
 
 export class TransactionResolver {
   private readonly txs: TransactionWithoutOrder[];
 
-  private readonly receipts: Receipt[];
+  private readonly receipts: ReceiptModel[];
 
   private readonly transfers: Transfer[];
 
-  private readonly assets: DBAsset[];
+  private readonly assets: Asset[];
 
   private readonly balances: Balance[];
 
@@ -68,11 +57,11 @@ export class TransactionResolver {
     await this.walk();
   }
 
-  getRelevantAccount(): DBAccount[] {
+  getRelevantAccount(): Account[] {
     return Array.from(this.accounts).map((address) => ({ address }));
   }
 
-  getCreatedAssets(): DBAsset[] {
+  getCreatedAssets(): Asset[] {
     return this.assets;
   }
 
@@ -88,7 +77,7 @@ export class TransactionResolver {
     this.transfers.push(transfer);
   }
 
-  private enqueueAsset(asset: DBAsset) {
+  private enqueueAsset(asset: Asset) {
     helper.cacheAsset(asset);
     this.assets.push(asset);
   }
@@ -105,7 +94,7 @@ export class TransactionResolver {
       assetId,
       // Since the balance will be affected by complex calculations such as fees,
       // the balance will be directly obtained on the chain
-      balance: hexU64(0),
+      balance: '0x0',
     });
   }
 
@@ -134,11 +123,11 @@ export class TransactionResolver {
         });
 
         this.enqueueTransfer({
-          asset: payload.asset_id,
+          asset: '0x' + payload.asset_id,
           from,
-          to: payload.to,
+          to: '0x' + payload.to,
           txHash,
-          value: payload.value,
+          value: '0x' + payload.value,
           block: this.height,
           timestamp: this.timestamp,
           amount: await helper.amountByAssetIdAndValue(

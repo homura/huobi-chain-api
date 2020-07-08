@@ -1,17 +1,12 @@
-import { rm0x, toHex } from '@muta-extra/common/lib/utils/bytes';
 import { findOne, getKnexInstance } from '@muta-extra/knex-mysql';
-import {
-  hexAddress,
-  hexHash,
-  hexU64,
-} from '@muta-extra/synchronizer/lib/clean/hex';
-import { Address, Hash, Uint64 } from '@mutajs/types';
+import { utils } from '@mutadev/muta-sdk';
+import { Address, Hash, Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
 import { Asset as ReceiptAsset } from 'huobi-chain-sdk';
 import LRUCache from 'lru-cache';
 import { ASSET } from '../db-mysql/constants';
-import { Asset, Asset as DBAsset } from '../generated/types';
-import { readonlyAssetService } from '../muta';
+import { client } from '../muta';
+import { Asset } from '../types';
 
 const knex = getKnexInstance();
 BigNumber.config({ EXPONENTIAL_AT: 18 });
@@ -24,16 +19,16 @@ export function toAmount(value: string, precision: number | BigNumber) {
 export function receiptAssetToDBAsset(
   receiptAsset: ReceiptAsset,
   txHash: Hash,
-): DBAsset {
-  const supply = hexU64(receiptAsset.supply);
+): Asset {
+  const supply = '0x' + new BigNumber(receiptAsset.supply).toString(16);
   const precision = new BigNumber(receiptAsset.precision).toNumber();
   return {
-    assetId: rm0x(receiptAsset.id),
+    assetId: receiptAsset.id,
     precision: precision,
     supply: supply,
     // TODO
     txHash,
-    account: hexAddress(receiptAsset.issuer),
+    account: receiptAsset.issuer,
     symbol: receiptAsset.symbol,
     name: receiptAsset.name,
     amount: toAmount(supply, precision),
@@ -41,18 +36,17 @@ export function receiptAssetToDBAsset(
 }
 
 class AssetHelper {
-  private cache: LRUCache<string, DBAsset>;
+  private cache: LRUCache<string, Asset>;
 
   constructor() {
     this.cache = new LRUCache();
   }
 
-  cacheAsset(asset: DBAsset) {
-    this.cache.set(hexHash(asset.assetId), asset);
+  cacheAsset(asset: Asset) {
+    this.cache.set(asset.assetId, asset);
   }
 
   async getDBAsset(assetId: string) {
-    assetId = hexHash(assetId);
     if (this.cache.has(assetId)) return this.cache.get(assetId)!;
 
     const asset = await findOne<Asset>(knex, ASSET, { assetId });
@@ -73,12 +67,16 @@ class AssetHelper {
   }
 
   async getBalance(assetId: Hash, address: Address, withAmount: boolean) {
-    const receipt = await readonlyAssetService.get_balance({
-      user: toHex(address),
-      asset_id: toHex(assetId),
+    const res = await client.queryService({
+      serviceName: 'asset',
+      method: 'get_balance',
+      payload: {
+        user: utils.toHex(address),
+        asset_id: utils.toHex(assetId),
+      },
     });
 
-    const value = receipt.succeedData.balance.toString(16);
+    const value = utils.safeParseJSON(res.succeedData);
     if (!withAmount) {
       return { value };
     }

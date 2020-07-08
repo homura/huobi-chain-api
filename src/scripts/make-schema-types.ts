@@ -26,7 +26,7 @@ export const schemas = schema.makeSchema({
         alias: 'ctx',
       },
       {
-        source: require.resolve('../generated/types'),
+        source: require.resolve('../types'),
         alias: 'db',
       },
     ],
