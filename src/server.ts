@@ -1,5 +1,4 @@
-import { envNum } from '@muta-extra/common';
-import { makeSchema } from '@muta-extra/nexus-schema';
+import { envNum, extendService, makeSchema } from '@muta-extra/hermit-purple';
 import { ApolloServer } from 'apollo-server';
 import path from 'path';
 import { types } from './schema';
@@ -12,7 +11,7 @@ const schema = makeSchema({
   },
 });
 
-const services = new HuobiService();
+const services = extendService(new HuobiService());
 
 const server = new ApolloServer({
   schema,

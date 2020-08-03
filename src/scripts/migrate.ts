@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 require('@muta-extra/common').loadEnvFile();
 
-import { createRunnableMigrate } from '@muta-extra/knex-mysql/lib/migration/run';
+import { createMigration } from '@muta-extra/hermit-purple';
 import { HuobiMigration001 } from '../db-mysql/migration/001';
 
-createRunnableMigrate(new HuobiMigration001());
+const migration = new HuobiMigration001();
+createMigration(migration);

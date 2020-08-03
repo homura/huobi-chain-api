@@ -1,6 +1,6 @@
-import { schema } from '@muta-extra/nexus-schema';
-import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
+import { schema } from '@muta-extra/hermit-purple';
 import { GraphQLError } from 'graphql';
+import { pageArgs } from './common';
 
 export const Transfer = schema.objectType({
   name: 'Transfer',
@@ -19,6 +19,7 @@ export const Transfer = schema.objectType({
     t.field('transaction', {
       type: 'Transaction',
       nullable: true,
+      // @ts-ignore
       resolve(parent, args, ctx) {
         return ctx.transactionService.findByTxHash(parent.txHash);
       },
@@ -36,8 +37,10 @@ export const Transfer = schema.objectType({
 
     t.field('asset', {
       type: 'Asset',
+      nullable: true,
+      //@ts-ignore
       resolve(parent, args, ctx) {
-        return ctx.assetService.findByAssetId(parent.asset).then((x) => x!);
+        return ctx.assetService.findByAssetId(parent.asset);
       },
     });
   },
@@ -97,7 +100,9 @@ export const transferPagination = schema.queryField((t) => {
         })!;
       }
 
-      return [];
+      return ctx.transferService.filter({
+        pageArgs: args,
+      });
     },
   });
 });

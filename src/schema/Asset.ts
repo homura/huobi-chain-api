@@ -1,5 +1,5 @@
-import { schema } from '@muta-extra/nexus-schema';
-import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
+import { schema } from '@muta-extra/hermit-purple';
+import { pageArgs } from './common';
 
 export const Asset = schema.objectType({
   name: 'Asset',
@@ -13,8 +13,6 @@ export const Asset = schema.objectType({
     t.field('supply', { type: 'Uint64' });
 
     t.int('precision');
-
-    t.string('amount');
 
     t.field('issuer', {
       type: 'Address',

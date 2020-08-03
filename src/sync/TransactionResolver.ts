@@ -1,12 +1,8 @@
-import { ReceiptModel, TransactionModel } from '@muta-extra/common';
-import {
-  hexJSONParse,
-  SourceDataType,
-} from '@muta-extra/synchronizer/lib/clean/hex';
+import { ReceiptModel, TransactionModel } from '@muta-extra/hermit-purple';
 import { utils } from '@mutadev/muta-sdk';
 import { Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
-import { helper, toAmount } from '../helpers/AssetHelper';
+import { helper } from '../helpers/AssetHelper';
 import { Account, Asset, Balance, Transfer } from '../types';
 
 type TransactionWithoutOrder = Omit<TransactionModel, 'order'>;
@@ -108,26 +104,26 @@ export class TransactionResolver {
       const receipt = receipts[i];
 
       const txHash = tx.txHash;
-      const from: string = utils
-        .addressFromPublicKey(utils.toBuffer(tx.pubkey))
-        .toString('hex');
+      const from: string = tx.sender;
 
       const { serviceName, method, payload: payloadStr } = tx;
       if (receipt.isError || serviceName !== 'asset') return;
 
       if (method === 'transfer') {
-        const payload = hexJSONParse(payloadStr, {
+        const payload = utils.safeParseJSON(
+          payloadStr /*{
           asset_id: SourceDataType.Hash,
           to: SourceDataType.Address,
           value: SourceDataType.u64,
-        });
+        }*/,
+        );
 
         this.enqueueTransfer({
-          asset: '0x' + payload.asset_id,
+          asset: utils.toHex(payload.asset_id),
           from,
-          to: '0x' + payload.to,
+          to: payload.to,
           txHash,
-          value: '0x' + payload.value,
+          value: utils.toHex(payload.value),
           block: this.height,
           timestamp: this.timestamp,
           amount: await helper.amountByAssetIdAndValue(
@@ -141,19 +137,14 @@ export class TransactionResolver {
       }
 
       if (method === 'transfer_from') {
-        const payload = hexJSONParse(payloadStr, {
-          asset_id: SourceDataType.Hash,
-          sender: SourceDataType.Address,
-          recipient: SourceDataType.Address,
-          value: SourceDataType.u64,
-        });
+        const payload = utils.safeParseJSON(payloadStr);
 
         this.enqueueTransfer({
-          asset: payload.asset_id,
+          asset: utils.toHex(payload.asset_id),
           from,
           to: payload.recipient,
           txHash,
-          value: payload.value,
+          value: utils.toHex(payload.value),
           block: this.height,
           timestamp: this.timestamp,
           amount: await helper.amountByAssetIdAndValue(
@@ -168,16 +159,10 @@ export class TransactionResolver {
       }
 
       if (method === 'create_asset') {
-        const payload = hexJSONParse(receipt.ret, {
-          supply: SourceDataType.u64,
-          symbol: SourceDataType.String,
-          name: SourceDataType.String,
-          id: SourceDataType.Hash,
-          precision: SourceDataType.u64,
-        });
+        const payload = utils.safeParseJSON(receipt.ret);
 
         const precision = new BigNumber(payload.precision, 16).toNumber();
-        const supply = payload.supply;
+        const supply = utils.toHex(new BigNumber(payload.supply).toString(16));
         this.enqueueAsset({
           assetId: payload.id,
           name: payload.name,
@@ -186,7 +171,6 @@ export class TransactionResolver {
           account: from,
           txHash,
           precision,
-          amount: toAmount(supply, precision),
         });
 
         this.enqueueBalance(from, payload.id);

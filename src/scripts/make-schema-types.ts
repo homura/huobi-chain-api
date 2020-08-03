@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-require('@muta-extra/common').loadEnvFile();
+require('@muta-extra/hermit-purple').loadEnvFile();
 
-import { schema } from '@muta-extra/nexus-schema';
+import { makeSchema } from '@muta-extra/hermit-purple';
 import { join } from 'path';
 import { types } from '../schema';
 
 const outputTypegen = join(__dirname, '../generated/nexus.ts');
 
-export const schemas = schema.makeSchema({
+export const schemas = makeSchema({
   types,
   outputs: {
     typegen: outputTypegen,
   },
   typegenAutoConfig: {
-    contextType: 'ctx.IHuobiService',
+    contextType: 'ctx.IAllService',
     backingTypeMap: {
       Address: 'string',
       Bytes: 'string',

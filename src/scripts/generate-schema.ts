@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-require('@muta-extra/common').loadEnvFile();
+require('@muta-extra/hermit-purple').loadEnvFile();
 
-import { envStr } from '@muta-extra/common';
+import { envStr } from '@muta-extra/hermit-purple';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 import { typescriptOfSchema } from 'schemats';

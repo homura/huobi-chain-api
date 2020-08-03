@@ -1,6 +1,6 @@
-import { schema } from '@muta-extra/nexus-schema';
-import { pageArgs } from '@muta-extra/nexus-schema/lib/schema/pagination';
+import { schema } from '@muta-extra/hermit-purple';
 import { helper } from '../helpers/AssetHelper';
+import { pageArgs } from './common';
 
 export const Balance = schema.objectType({
   name: 'Balance',

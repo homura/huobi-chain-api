@@ -1,4 +1,3 @@
-import { Muta } from '@mutadev/muta-sdk';
+import { Client } from '@mutadev/muta-sdk';
 
-export const muta = new Muta();
-export const client = muta.client();
+export const client = new Client();

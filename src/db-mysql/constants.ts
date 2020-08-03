@@ -5,3 +5,5 @@ export const ASSET = 'asset';
 export const TRANSFER = 'transfer';
 
 export const BALANCE = 'balance';
+
+export const ACCOUNT = 'account';

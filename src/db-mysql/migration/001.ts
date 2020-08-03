@@ -1,28 +1,29 @@
-import { Knex } from '@muta-extra/knex-mysql';
-import { Migration1591797537928 } from '@muta-extra/knex-mysql/lib/migration/Migration1591797537928';
+import { Migration001 } from '@muta-extra/hermit-purple';
 
-import { ASSET, BALANCE, TRANSFER } from '../constants';
+import { ACCOUNT, ASSET, BALANCE, TRANSFER } from '../constants';
 
-export class HuobiMigration001 extends Migration1591797537928 {
-  up(): Knex.SchemaBuilder {
+export class HuobiMigration001 extends Migration001 {
+  constructor() {
+    super();
+  }
+
+  up() {
     return super
       .up()
       .createTable(ASSET, (table) => {
         table.increments('id');
 
-        table.specificType('account', 'varchar(42) NOT NULL');
+        table.specificType('account', 'varchar(48) NOT NULL');
 
         table.specificType('asset_id', 'varchar(66) NOT NULL');
 
-        table.text('name').notNullable();
+        table.text('name', 'varchar(255)').notNullable();
 
         table.specificType('supply', 'varchar(18) NOT NULL');
 
         table.integer('precision').defaultTo(0).notNullable();
 
         table.text('symbol').notNullable();
-
-        table.text('amount').notNullable();
 
         table.specificType('tx_hash', 'varchar(66) NOT NULL');
       })
@@ -34,11 +35,11 @@ export class HuobiMigration001 extends Migration1591797537928 {
           .index('idx_transfer_asset');
 
         table
-          .specificType('from', 'varchar(42) NOT NULL')
+          .specificType('from', 'varchar(48) NOT NULL')
           .index('idx_transfer_from');
 
         table
-          .specificType('to', 'varchar(42) NOT NULL')
+          .specificType('to', 'varchar(48) NOT NULL')
           .index('idx_transfer_to');
 
         table
@@ -68,7 +69,7 @@ export class HuobiMigration001 extends Migration1591797537928 {
         table.bigIncrements('id');
 
         table
-          .specificType('address', 'varchar(42) NOT NULL')
+          .specificType('address', 'varchar(48) NOT NULL')
           .index('idx_balance_address');
 
         table
@@ -78,14 +79,22 @@ export class HuobiMigration001 extends Migration1591797537928 {
         table.specificType('balance', 'varchar(18) NOT NULL');
 
         table.unique(['address', 'asset_id'], 'uniq_balance_address_asset_id');
+      })
+      .createTable(ACCOUNT, (table) => {
+        table.bigIncrements('id');
+
+        table
+          .specificType('address', 'varchar(48) NOT NULL')
+          .unique('uniq_account_address');
       });
   }
 
-  down(): Knex.SchemaBuilder {
+  down() {
     return super
       .down()
       .dropTableIfExists(ASSET)
       .dropTableIfExists(TRANSFER)
-      .dropTableIfExists(BALANCE);
+      .dropTableIfExists(BALANCE)
+      .dropTableIfExists(ACCOUNT);
   }
 }

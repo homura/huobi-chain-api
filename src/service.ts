@@ -1,11 +1,11 @@
 import {
-  buildManyQuery,
-  DefaultService,
-  findMany,
-  findOne,
-  getKnexInstance,
-} from '@muta-extra/knex-mysql';
-import { IService, QueryManyFn, QueryOneFn } from '@muta-extra/nexus-schema';
+  IService,
+  KnexHelper,
+  QueryManyFn,
+  QueryOneFn,
+  extendService,
+} from '@muta-extra/hermit-purple';
+import { buildManyQuery } from '@muta-extra/knex-mysql';
 import { ASSET, BALANCE, TRANSFER } from './db-mysql/constants';
 import { Asset, Balance, Transfer } from './generated/types';
 
@@ -26,33 +26,33 @@ interface IAssetService {
   filter: QueryManyFn<Asset, {}>;
 }
 
-export interface IHuobiService extends IService {
+export interface IHuobiService {
   transferService: ITransferService;
   balanceService: IBalanceService;
   assetService: IAssetService;
 }
 
-const knex = getKnexInstance();
-
-export class HuobiService extends DefaultService implements IHuobiService {
+export class HuobiService implements IHuobiService {
   transferService: ITransferService;
   balanceService: IBalanceService;
   assetService: IAssetService;
 
   constructor() {
-    super();
+    const helper = new KnexHelper();
+    const knex = helper.getKnexInstance();
+
     this.transferService = {
       async filter(args) {
-        return findMany<Transfer>(knex, TRANSFER, {
+        return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
         });
       },
       async findByTxHash(txHash: string) {
-        return findOne<Transfer>(knex, TRANSFER, { txHash });
+        return helper.findOne<Transfer>(TRANSFER, { txHash });
       },
 
       async filterByBlockHeight(args) {
-        return findMany<Transfer>(knex, TRANSFER, {
+        return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
           where: { block: args.blockHeight },
           orderBy: ['id', 'desc'],
@@ -60,7 +60,7 @@ export class HuobiService extends DefaultService implements IHuobiService {
       },
 
       async filterByAssetId(args) {
-        return findMany<Transfer>(knex, TRANSFER, {
+        return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
           where: { asset: args.assetId },
           orderBy: ['id', 'desc'],
@@ -96,7 +96,7 @@ union all
     };
     this.balanceService = {
       filterByAddress(args) {
-        return findMany<Balance>(knex, BALANCE, {
+        return helper.findMany<Balance>(BALANCE, {
           where: { address: args.address },
           orderBy: ['id', 'desc'],
           page: args.pageArgs,
@@ -105,10 +105,10 @@ union all
     };
     this.assetService = {
       findByAssetId(assetId) {
-        return findOne<Asset>(knex, ASSET, { assetId });
+        return helper.findOne<Asset>(ASSET, { assetId });
       },
       filter(args) {
-        return findMany<Asset>(knex, ASSET, {
+        return helper.findMany<Asset>(ASSET, {
           page: args.pageArgs,
           orderBy: ['name', 'asc'],
         });
@@ -116,3 +116,5 @@ union all
     };
   }
 }
+
+export type IAllService = IHuobiService & IService;

@@ -1,14 +1,12 @@
-import { findOne, getKnexInstance } from '@muta-extra/knex-mysql';
+import { KnexHelper } from '@muta-extra/hermit-purple';
 import { utils } from '@mutadev/muta-sdk';
 import { Address, Hash, Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
-import { Asset as ReceiptAsset } from 'huobi-chain-sdk';
 import LRUCache from 'lru-cache';
 import { ASSET } from '../db-mysql/constants';
 import { client } from '../muta';
 import { Asset } from '../types';
 
-const knex = getKnexInstance();
 BigNumber.config({ EXPONENTIAL_AT: 18 });
 
 export function toAmount(value: string, precision: number | BigNumber) {
@@ -16,27 +14,9 @@ export function toAmount(value: string, precision: number | BigNumber) {
   return new BigNumber(value, 16).shiftedBy(-precision).toString();
 }
 
-export function receiptAssetToDBAsset(
-  receiptAsset: ReceiptAsset,
-  txHash: Hash,
-): Asset {
-  const supply = '0x' + new BigNumber(receiptAsset.supply).toString(16);
-  const precision = new BigNumber(receiptAsset.precision).toNumber();
-  return {
-    assetId: receiptAsset.id,
-    precision: precision,
-    supply: supply,
-    // TODO
-    txHash,
-    account: receiptAsset.issuer,
-    symbol: receiptAsset.symbol,
-    name: receiptAsset.name,
-    amount: toAmount(supply, precision),
-  };
-}
-
 class AssetHelper {
   private cache: LRUCache<string, Asset>;
+  private helper: KnexHelper = new KnexHelper();
 
   constructor() {
     this.cache = new LRUCache();
@@ -49,7 +29,7 @@ class AssetHelper {
   async getDBAsset(assetId: string) {
     if (this.cache.has(assetId)) return this.cache.get(assetId)!;
 
-    const asset = await findOne<Asset>(knex, ASSET, { assetId });
+    const asset = await this.helper.findOne<Asset>(ASSET, { assetId });
     if (!asset) return null;
 
     this.cacheAsset(asset);
@@ -70,10 +50,10 @@ class AssetHelper {
     const res = await client.queryService({
       serviceName: 'asset',
       method: 'get_balance',
-      payload: {
+      payload: utils.safeStringifyJSON({
         user: utils.toHex(address),
         asset_id: utils.toHex(assetId),
-      },
+      }),
     });
 
     const value = utils.safeParseJSON(res.succeedData);

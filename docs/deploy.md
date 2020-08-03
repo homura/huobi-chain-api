@@ -20,15 +20,15 @@ https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-di
 ## Clone this project
 
 ```
-git clone https://github.com/homura/hermit-purple-server.git
-cd hermit-purple-server
+git clone https://github.com/homura/huobi-chain-api.git
+cd huobi-chain-api
 ```
 
 ## Define environment variables
 
 ### (Recommend) Create an `.env` file in the directory of this project
 
-this is an example `.env` file
+The Muta can be configured follow [muta-defaults](https://github.com/nervosnetwork/muta-sdk-js/tree/master/packages/muta-defaults), as well as some configuration of this API server
 
 ```env
 # the Muta GraphQL RPC endpoint
@@ -38,13 +38,23 @@ this is an example `.env` file
 # we should use "http://x.x.x.x/graphql" here
 MUTA_ENDPOINT=http://127.0.0.1:8000/graphql
 
-HERMIT_DATABASE_URL=mysql://user:password@localhost:3306/muta
-
-# The maximum skip size of page turning during list query
-HERMIT_MAX_SKIP_SIZE=10000
+#
+MUTA_ADDRESS_HRP=muta
 
 # ChainID of the running Muta instance
 MUTA_CHAINID=0xb6a4d7da21443f5e816e8700eea87610e6d769657d6b8ec73028457bf2ca4036
+
+# mysql database connection url
+HERMIT_DATABASE_URL=mysql://user:password@localhost:3306/muta
+
+# redis cache connection url
+HERMIT_CACHE_URL=redis://localhost:6379/1
+
+# redis cache ttl
+HERMIT_CACHE_TTL=3
+
+# The maximum skip size of page turning during list query
+# HERMIT_MAX_SKIP_SIZE=10000
 
 # maximum concurrency when sync
 # note: a large number may make Muta slower
@@ -71,17 +81,23 @@ npm run build
 
 ## Setup the database(via MySQL and migration script automatic )
 
+### By Migration Script
+
 Create the schema automatic if `HERMIT_DATABASE_URL` is set
 
 ```
-npm run migrate 001 up
+npm run migrate migration:up
 ```
 
 Also we can drop the database
 
 ```
-npm run migrate 001 down
+npm run migrate migration:down
 ```
+
+### By  DDL
+
+Using the [schema.sql](./schema.sql)
 
 ## Start server and sync(via pm2)
 
@@ -102,7 +118,7 @@ Recommend to use **[pm2](https://pm2.keymetrics.io/)** as the daemon process man
       "script": "npm",
       "args": "run sync",
       "env": {
-        "DEBUG": "sync:*"
+        "DEBUG": "muta-extra:*"
       }
     }
   ]

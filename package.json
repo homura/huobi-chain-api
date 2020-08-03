@@ -16,7 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "dev:server": "dotenv -- ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpileOnly src/server",
-    "dev:sync": "cross-env DEBUG=muta:* ts-node --transpile-only src/sync.ts",
+    "dev:sync": "cross-env DEBUG=\"muta:* muta-extra:*\" ts-node --transpile-only src/sync.ts",
     "sync": "node dist/sync",
     "release:alpha": "standard-version --prerelease alpha",
     "migrate": "ts-node --transpile-only src/scripts/migrate.ts"
@@ -36,11 +36,8 @@
   },
   "homepage": "https://github.com/homura/huobi-chain-api#readme",
   "dependencies": {
-    "@mutadev/muta-sdk": "^0.2.0-dev.0",
-    "@muta-extra/common": "^0.4.0-dev.3",
-    "@muta-extra/knex-mysql": "^0.4.0-dev.3",
-    "@muta-extra/nexus-schema": "^0.4.0-dev.3",
-    "@muta-extra/synchronizer": "^0.4.0-dev.3",
+    "@muta-extra/hermit-purple": "^0.4.0-dev.4",
+    "@mutadev/muta-sdk": "^0.2.0-pr374.3",
     "@types/body-parser": "^1.19.0",
     "@types/cors": "^2.8.6",
     "@types/http-proxy-middleware": "^0.19.3",
@@ -57,12 +54,13 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "dotenv-cli": "^3.1.0",
-    "module-alias": "^2.2.2",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "schemats": "^3.0.3",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.8.3"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "resolutions": {
+    "graphql": "^14.7.0"
   }
 }
