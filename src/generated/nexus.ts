@@ -137,7 +137,7 @@ export interface NexusGenFieldTypes {
   }
   Transfer: { // field return type
     amount: string; // String!
-    asset: NexusGenRootTypes['Asset']; // Asset!
+    asset: NexusGenRootTypes['Asset'] | null; // Asset
     block: number; // Int!
     from: string; // Address!
     timestamp: any; // Timestamp!

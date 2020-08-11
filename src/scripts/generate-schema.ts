@@ -16,10 +16,11 @@ async function main() {
 
   const schema = await typescriptOfSchema(connection, undefined, undefined, {
     camelCase: true,
+    writeHeader: false,
   });
   writeFileSync(
     join(__dirname, '../generated/types.ts'),
-    `// @ts-nocheck \n${schema}`,
+    `// AUTO-GENERATED FILE - DO NOT EDIT! \n// @ts-nocheck \n${schema}`,
   );
   process.exit(0);
 }
