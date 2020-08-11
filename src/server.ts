@@ -1,3 +1,5 @@
+require('@muta-extra/hermit-purple').loadEnvFile();
+
 import { envNum, extendService, makeSchema } from '@muta-extra/hermit-purple';
 import { ApolloServer } from 'apollo-server';
 import path from 'path';
