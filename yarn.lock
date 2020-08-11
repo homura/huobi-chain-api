@@ -56,10 +56,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@muta-extra/common@0.4.0-dev.4":
-  version "0.4.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.4.tgz#67a01986606d24920fa81e0721260234ceb36b1a"
-  integrity sha512-C7lyg9AiDr2q2V0+TT/YeAZ5uPC9KFSHv4D8bqZWWja6UI+WmUOMd0nmyu4H3GxgabjqQD+qua3SGa06IIZICw==
+"@muta-extra/common@^0.4.0-dev.6":
+  version "0.4.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.6.tgz#5138f3d23dac6ec4ba88626e2fdd9e051cc070be"
+  integrity sha512-zkABUQ5NID2Xs0In1JzeSniRCOutXTixk8beSm2EHVflMzRRyzBRy0MFRqMWdLiOsYT0zFFXeBsv+DZrrFiP5g==
   dependencies:
     "@types/debug" "^4.1.5"
     commander "^5.1.0"
@@ -67,24 +67,24 @@
     dotenv "^8.2.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/hermit-purple@^0.4.0-dev.4":
-  version "0.4.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.4.tgz#0d1175043cd47377b6fd3b9490673393c05e5f74"
-  integrity sha512-wtISnlPu8/Ke3kEoHJXy7EQlDadvftsBW9Ku3moSIT6aVgOG65dnzA4FAh91NQR3y3HoAlMQubwxwzslg86LBw==
+"@muta-extra/hermit-purple@^0.4.0-dev.6":
+  version "0.4.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.6.tgz#5618d4c176662785cdb9be6b77719b445ad50689"
+  integrity sha512-lRPCvXnwqk3fr66Do7E/sMIl5bbZv/nA7dA7Y/WZ5XRCW8sokrWs2V9e1Doxvi06B/tmVa3ab1nXhpkta2n5Vg==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.4"
-    "@muta-extra/knex-mysql" "0.4.0-dev.4"
-    "@muta-extra/nexus-schema" "0.4.0-dev.4"
-    "@muta-extra/synchronizer" "0.4.0-dev.4"
+    "@muta-extra/common" "^0.4.0-dev.6"
+    "@muta-extra/knex-mysql" "^0.4.0-dev.6"
+    "@muta-extra/nexus-schema" "^0.4.0-dev.6"
+    "@muta-extra/synchronizer" "^0.4.0-dev.6"
     schemats "^3.0.3"
 
-"@muta-extra/knex-mysql@0.4.0-dev.4":
-  version "0.4.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.4.tgz#767a6f63052c5ef98c286c5f9e4e50ace26ef03f"
-  integrity sha512-inav3JZ6YREbkSe+ByOTqDqkmVHLSYtiFiR1HoPIt54EsG3zaUEPSRogn7Ci3pZe2OscH8kHWuXb8xUfxrc8tQ==
+"@muta-extra/knex-mysql@^0.4.0-dev.6":
+  version "0.4.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.6.tgz#40074f88b503fef756c1d05d853d80282491bf0e"
+  integrity sha512-oUt9B4kQD03saeNDtEtuqAaI4NEZIFU6/d3vESn8F5E0Wqx8a5LNPxKKKVjyPIDLCLspfutS/xfZHfVyDIbtyQ==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.4"
-    "@muta-extra/synchronizer" "0.4.0-dev.4"
+    "@muta-extra/common" "^0.4.0-dev.6"
+    "@muta-extra/synchronizer" "^0.4.0-dev.6"
     "@types/cache-manager" "^2.10.3"
     "@types/lodash" "^4.14.158"
     cache-manager "^3.3.0"
@@ -98,20 +98,20 @@
     node-object-hash "^2.0.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/nexus-schema@0.4.0-dev.4":
-  version "0.4.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.4.tgz#1d62c88e63c7e54b507fa3097ec2d2e389631864"
-  integrity sha512-YDjQkV0Xdz7EmvYcSpnVsQGRUNHf6/rLJFZJYwOvDrJ8/ZPvEa8NUU+p/JNSEjir0hTsPcCn65dEXSRwxdRtHQ==
+"@muta-extra/nexus-schema@^0.4.0-dev.6":
+  version "0.4.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.6.tgz#ea4025862ddfb291fe988fcf3b00ad8db7a19a0c"
+  integrity sha512-+4PNmNHva0JoYxbNMPBPZ4W9DHUmuBiWJkSGcEnS9N0ho98+hkutRydMKCqaFfUIBLyBRJw2Z6t1vHNU7qLLgA==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.4"
+    "@muta-extra/common" "^0.4.0-dev.6"
     "@nexus/schema" "^0.14.0"
 
-"@muta-extra/synchronizer@0.4.0-dev.4":
-  version "0.4.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.4.tgz#c0a657cb31677235046855dc58ad189df92cdb1c"
-  integrity sha512-uQRHYbGpGwiDhMQtiZ/HCjnbIXa+lSBjQCTcx9ait5klHu2rZOFeDrhc6zGmL1BFH3WlpVjTTB0WDCX3Op4TaQ==
+"@muta-extra/synchronizer@^0.4.0-dev.6":
+  version "0.4.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.6.tgz#f4e47fa6348eea4a54b8647c9813f0e5ec5562a7"
+  integrity sha512-WoJAuTXgTVYaYwhQ+TQfTG6O6uXN1oAKvtg45x9Qk3FG5JzXiDbHSbnvOfp9ykJ/7mGxFGE8JNXoVFCj5Ml4mQ==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.4"
+    "@muta-extra/common" "^0.4.0-dev.6"
     "@types/bluebird" "^3.5.32"
     "@types/lodash" "^4.14.158"
     "@types/lossless-json" "^1.0.0"
@@ -121,80 +121,80 @@
     lossless-json "^1.0.4"
     threads "^1.6.3"
 
-"@mutadev/account@0.2.0-pr374.3":
-  version "0.2.0-pr374.3"
-  resolved "https://registry.yarnpkg.com/@mutadev/account/-/account-0.2.0-pr374.3.tgz#d9d82abbd7db748d773a0bc21f01ba89fa45443e"
-  integrity sha512-9Ti0sDGj7o54ZyDCKgiORGDZMeK8uOK3+QmY200H2zLLouIYpocEoIU31l5cDtwqCMP/SMJNpS1eZFTqzPiM3Q==
+"@mutadev/account@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/account/-/account-0.2.0-beta.4.tgz#1e37d4adf4e6041e72e582bbb6f41455f38696cc"
+  integrity sha512-QyxyROzof1IUzrghpYdULL6ODwlDgEQrqs4T/s+kHS699KjIvdbWD6QKQev4vftt5xxmflYdRrJrdBFMiUDdIQ==
   dependencies:
-    "@mutadev/defaults" "0.2.0-pr374.2"
-    "@mutadev/utils" "0.2.0-pr374.3"
+    "@mutadev/defaults" "^0.2.0-beta.4"
+    "@mutadev/utils" "^0.2.0-beta.4"
 
-"@mutadev/client-raw@0.2.0-pr374.2":
-  version "0.2.0-pr374.2"
-  resolved "https://registry.yarnpkg.com/@mutadev/client-raw/-/client-raw-0.2.0-pr374.2.tgz#9ad61cc015f5d18513e5ad6a6b73a73b56ace271"
-  integrity sha512-27PV+kr7Tn9zQhLtCx7c+XphXX0p4Ixf2V0juCLzPHkb3Y4gE4GTsa4V4FQCcakW5Av1+GRIkcFyIM+aous6uQ==
+"@mutadev/client-raw@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/client-raw/-/client-raw-0.2.0-beta.4.tgz#acc2575ec20b867cc9e1bdb1693e3faba5f426f5"
+  integrity sha512-7TGGPOMllnj/dlXEt3m5wCQEvaEWz/JPacuYuaFDBcTCV1oUu48M5cxLyckY7Lmn5G8KAxndTSTihDms424hOA==
   dependencies:
     graphql-request "^1.8.2"
     graphql-tag "^2.10.1"
 
-"@mutadev/client@0.2.0-pr374.3":
-  version "0.2.0-pr374.3"
-  resolved "https://registry.yarnpkg.com/@mutadev/client/-/client-0.2.0-pr374.3.tgz#6befbcf50b9acd52415ad7e97d94ed53aa1f621e"
-  integrity sha512-KnItJDo3dRzqrKKxr9KCx+SuualhHi9OfX+mzOFWO5x4QWi6ymJt4Kkqj66pt4+WI3rMOkQGw+CFuPjqhSirLQ==
+"@mutadev/client@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/client/-/client-0.2.0-beta.4.tgz#1c7cd306ee4ca80d18bdccfb9a26175eec1e8354"
+  integrity sha512-DOMYGgLoSIxv9z43XsQIT7++gKc6dQ5o14ap/TZXL489WW0bS2p9DaLfbQHKhLSiPEd+lsGMuN9cqR8Fsj3A2A==
   dependencies:
-    "@mutadev/account" "0.2.0-pr374.3"
-    "@mutadev/client-raw" "0.2.0-pr374.2"
-    "@mutadev/defaults" "0.2.0-pr374.2"
-    "@mutadev/shared" "0.2.0-dev.2"
-    "@mutadev/types" "0.2.0-pr374.2"
-    "@mutadev/utils" "0.2.0-pr374.3"
+    "@mutadev/account" "^0.2.0-beta.4"
+    "@mutadev/client-raw" "^0.2.0-beta.4"
+    "@mutadev/defaults" "^0.2.0-beta.4"
+    "@mutadev/shared" "^0.2.0-beta.4"
+    "@mutadev/types" "^0.2.0-beta.4"
+    "@mutadev/utils" "^0.2.0-beta.4"
     "@types/lodash" "^4.14.149"
     lodash "^4.17.15"
     p-limit "^2.3.0"
     utility-types "^3.10.0"
 
-"@mutadev/defaults@0.2.0-pr374.2":
-  version "0.2.0-pr374.2"
-  resolved "https://registry.yarnpkg.com/@mutadev/defaults/-/defaults-0.2.0-pr374.2.tgz#d28998962ce8becf30dfde4513667148e20406fa"
-  integrity sha512-RYISzKgAM0CI3iAju8m3MCWrkK08U9NuSbEHuZL9xJS3aZbS+G5dlK6EbyBLgz7SJ8TXw/Oh2SS+RiXVNh/zZg==
+"@mutadev/defaults@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/defaults/-/defaults-0.2.0-beta.4.tgz#f7c9e9dba5ed0d5b539c35962c48f7a10e487810"
+  integrity sha512-RPSXpOy7e9y0QYnIsVV3dPxg47OwVZ13jzWcFWmPGrHb31yqF5OekAufCNF0ZYulOiU/yiPjiiS53XgPlJoYJg==
 
-"@mutadev/muta-sdk@^0.2.0-pr374.3":
-  version "0.2.0-pr374.3"
-  resolved "https://registry.yarnpkg.com/@mutadev/muta-sdk/-/muta-sdk-0.2.0-pr374.3.tgz#71ca16f3b51a359097faf2e538bb12ebc6aafc17"
-  integrity sha512-nuB30quB/+oWtO97H0D+Zgqx+qJ8vx5sR22TCywX/rlxuBA87SxgTPe0rb881e/lJgPa072xfLhhkMIJE5HTMA==
+"@mutadev/muta-sdk@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/muta-sdk/-/muta-sdk-0.2.0-beta.4.tgz#0a403d64b153aae6c2ec19f44fd263e013dc4053"
+  integrity sha512-73IL5VITOHckBueI61QMPJvCzne1+2JTMCfp2Xn5f6+o4ZrYRV3nyQcHHI9bmO63GXZh6aRUD5VQBSemMKdcwg==
   dependencies:
-    "@mutadev/account" "0.2.0-pr374.3"
-    "@mutadev/client" "0.2.0-pr374.3"
-    "@mutadev/defaults" "0.2.0-pr374.2"
-    "@mutadev/shared" "0.2.0-dev.2"
-    "@mutadev/types" "0.2.0-pr374.2"
-    "@mutadev/wallet" "0.2.0-pr374.3"
+    "@mutadev/account" "^0.2.0-beta.4"
+    "@mutadev/client" "^0.2.0-beta.4"
+    "@mutadev/defaults" "^0.2.0-beta.4"
+    "@mutadev/shared" "^0.2.0-beta.4"
+    "@mutadev/types" "^0.2.0-beta.4"
+    "@mutadev/wallet" "^0.2.0-beta.4"
     utility-types "^3.10.0"
 
-"@mutadev/shared@0.2.0-dev.2":
-  version "0.2.0-dev.2"
-  resolved "https://registry.yarnpkg.com/@mutadev/shared/-/shared-0.2.0-dev.2.tgz#8a68debe176122a28f5625478318e29d87fbfa88"
-  integrity sha512-awGAOk2VjZXdfbkKV3xaDx5zHVmSQEF6Pgn+saAaooWJnNEIzADMYOOYSDijkIrn7Lb18y0XghDSBBIg6vjcpA==
+"@mutadev/shared@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/shared/-/shared-0.2.0-beta.4.tgz#7b1dcef24d485046de3c8b875120e9a5444a6999"
+  integrity sha512-fbaW53S5+xoELdFIp+OfLC+PV9Ay65IDckdRoh/Iq0G4ysRax0XoxKLF9M4htFNUFQ3cipcV8yOflnONytVW1Q==
   dependencies:
     "@types/invariant" "^2.2.4"
     bignumber.js "^9.0.0"
     invariant "^2.2.4"
 
-"@mutadev/types@0.2.0-pr374.2":
-  version "0.2.0-pr374.2"
-  resolved "https://registry.yarnpkg.com/@mutadev/types/-/types-0.2.0-pr374.2.tgz#5bf934aae0003910e9017d467296c36ee44eb0ac"
-  integrity sha512-GuP9URewaAhAS2MxZvWuQP/tBg+lD7u1yu1aksCOOOxjz2LlqOwRjzB8OA33GR0LRgfh1q2xWgmIIBpl9pCO8w==
+"@mutadev/types@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/types/-/types-0.2.0-beta.4.tgz#aa6190d0947b5396a431060592b2fa1d21c09bfb"
+  integrity sha512-+LrBJEw6d1yJWrZX2sZz1l6jJ1IJXnVsfusmCJeYbtg3SmTUVlwhbZiz7Lpn5bCItuYoh0v3aH5UEhQkIxq6/Q==
   dependencies:
     bignumber.js "^9.0.0"
 
-"@mutadev/utils@0.2.0-pr374.3":
-  version "0.2.0-pr374.3"
-  resolved "https://registry.yarnpkg.com/@mutadev/utils/-/utils-0.2.0-pr374.3.tgz#9af194f69e6df2eba9ddae80b02da4b0f8cc6deb"
-  integrity sha512-S9eOsOo5+SBb+3oxY+6b6h3LtG5Kq/JyDsiIjkK60T+fltXtIIx+07130rhm7m3iLU8nuyQUr03SMzb3sz57qA==
+"@mutadev/utils@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/utils/-/utils-0.2.0-beta.4.tgz#2dc4a701c6a80ab77deea5cb5116019461e8fa4b"
+  integrity sha512-AAYcEd2tNm5Qu+It2tjLQ7LmIP+Qy2eWpAL7KNS3jovbnE0c5ctrCTyf28kO0Fo0YneWDXuXMPueWEUT9XxMZA==
   dependencies:
-    "@mutadev/defaults" "0.2.0-pr374.2"
-    "@mutadev/shared" "0.2.0-dev.2"
-    "@mutadev/types" "0.2.0-pr374.2"
+    "@mutadev/defaults" "^0.2.0-beta.4"
+    "@mutadev/shared" "^0.2.0-beta.4"
+    "@mutadev/types" "^0.2.0-beta.4"
     bech32 "^1.1.4"
     json-bigint "^0.3.0"
     keccak "^3.0.0"
@@ -202,13 +202,13 @@
     rlp "^2.2.5"
     secp256k1 "^4.0.0"
 
-"@mutadev/wallet@0.2.0-pr374.3":
-  version "0.2.0-pr374.3"
-  resolved "https://registry.yarnpkg.com/@mutadev/wallet/-/wallet-0.2.0-pr374.3.tgz#d804dfadde5f7db2bad5f0b433e984ab6f6cff08"
-  integrity sha512-73XuXKpE3EqqVHNEGxd3wNcNdiejxC0w2TOMP7Yg+X1NLqm+HAKYCCJCtLJ0BRs5UbqFxGgMXZzbpeYG4LU7fw==
+"@mutadev/wallet@^0.2.0-beta.4":
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mutadev/wallet/-/wallet-0.2.0-beta.4.tgz#e5bb8225b0c87fcfb5874d80c9169a49a11ad378"
+  integrity sha512-a3vCWsEzuYUnDG7btdfCKSz6K0SITx8fKNAm5ejaSzOT3y3XG8CY0BPrw+LcnDUutnFJTwS2KG1RBfkIbm5Rjg==
   dependencies:
-    "@mutadev/account" "0.2.0-pr374.3"
-    "@mutadev/utils" "0.2.0-pr374.3"
+    "@mutadev/account" "^0.2.0-beta.4"
+    "@mutadev/utils" "^0.2.0-beta.4"
     bip39 "^3.0.2"
     hdkey "^1.1.1"
 

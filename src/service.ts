@@ -3,9 +3,7 @@ import {
   KnexHelper,
   QueryManyFn,
   QueryOneFn,
-  extendService,
 } from '@muta-extra/hermit-purple';
-import { buildManyQuery } from '@muta-extra/knex-mysql';
 import { ASSET, BALANCE, TRANSFER } from './db-mysql/constants';
 import { Asset, Balance, Transfer } from './generated/types';
 
@@ -69,13 +67,13 @@ export class HuobiService implements IHuobiService {
 
       async filterByFromOrTo(args) {
         const { fromOrTo, pageArgs } = args;
-        const fromBuilder = buildManyQuery<Transfer>(knex, TRANSFER, {
+        const fromBuilder = helper.buildManyQuery<Transfer>(TRANSFER, {
           orderBy: ['id', 'desc'],
           where: { from: fromOrTo },
           page: pageArgs,
         });
 
-        const toBuilder = buildManyQuery<Transfer>(knex, TRANSFER, {
+        const toBuilder = helper.buildManyQuery<Transfer>(TRANSFER, {
           orderBy: ['id', 'desc'],
           where: { to: fromOrTo },
           page: pageArgs,
